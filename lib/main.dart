@@ -28,8 +28,8 @@ class _HomePageState extends State<HomePage> {
   // Array of button
   final List<String> buttons = [
     'C',
-    '+/-',
     '%',
+    '^',
     'DEL',
     '7',
     '8',
@@ -183,7 +183,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   bool isOperator(String x) {
-    if (x == '/' || x == 'x' || x == '-' || x == '+' || x == '=') {
+    if (x == '/' || x == 'x' || x == '-' || x == '+' || x == '=' || x == '^') {
       return true;
     }
     return false;
