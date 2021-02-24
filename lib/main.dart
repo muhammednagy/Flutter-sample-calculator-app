@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'buttons.dart';
 import 'package:math_expressions/math_expressions.dart';
 
+import 'converter.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -28,6 +30,7 @@ class _HomePageState extends State<HomePage> {
   // Array of button
   final List<String> buttons = [
     'C',
+    'converter',
     '%',
     '^',
     'DEL',
@@ -64,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Container(
-                      padding: EdgeInsets.all(20),
+                      padding: EdgeInsets.all(2),
                       alignment: Alignment.centerRight,
                       child: Text(
                         userInput,
@@ -108,8 +111,23 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
 
-                    // +/- button
+                    // Converter page button
                     else if (index == 1) {
+                      return MyButton(
+                        buttonText: buttons[index],
+                        color: Colors.blue[50],
+                        textColor: Colors.black,
+                          buttontapped: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => ConverterPage()),
+                            );
+                          }
+                      );
+                    }
+
+                    // +/- button
+                    else if (index == 2) {
                       return MyButton(
                         buttonText: buttons[index],
                         color: Colors.blue[50],
@@ -117,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
                     // % Button
-                    else if (index == 2) {
+                    else if (index == 3) {
                       return MyButton(
                         buttontapped: () {
                           setState(() {
@@ -130,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
                     // Delete Button
-                    else if (index == 3) {
+                    else if (index == 4) {
                       return MyButton(
                         buttontapped: () {
                           setState(() {
@@ -144,7 +162,7 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
                     // Equal_to Button
-                    else if (index == 18) {
+                    else if (index == 19) {
                       return MyButton(
                         buttontapped: () {
                           setState(() {
