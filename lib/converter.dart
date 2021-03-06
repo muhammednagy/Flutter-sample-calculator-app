@@ -1,5 +1,4 @@
 
-import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,17 +7,15 @@ import 'package:flutter/services.dart';
 final _formKey = GlobalKey<FormState>();
 
 // Create a Form widget.
-class MyCustomForm extends StatefulWidget {
+class ConverterForm extends StatefulWidget {
   @override
-  MyCustomFormState createState() {
-    return MyCustomFormState();
+  ConverterFormState createState() {
+    return ConverterFormState();
   }
 }
 
 
-// Create a corresponding State class.
-// This class holds data related to the form.
-class MyCustomFormState extends State<MyCustomForm> {
+class ConverterFormState extends State<ConverterForm> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -121,7 +118,7 @@ class ConverterPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Distance converter"),
       ),
-      body: MyCustomForm(),
+      body: ConverterForm(),
     );
   }
 }

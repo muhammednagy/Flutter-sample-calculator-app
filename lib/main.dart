@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:nagy_calc/history.dart';
 import 'buttons.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 import 'converter.dart';
+import 'helpers/database_helper.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
@@ -30,7 +33,6 @@ class _HomePageState extends State<HomePage> {
   // Array of button
   final List<String> buttons = [
     'C',
-    'converter',
     '%',
     '^',
     'DEL',
@@ -52,11 +54,42 @@ class _HomePageState extends State<HomePage> {
     '+',
   ];
 
+  void handleClick(String value) {
+    switch (value) {
+      case 'Converter':
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ConverterPage()),
+          );
+        break;
+      case 'History':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HistoryPage()),
+        );
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
-        title: new Text("Calculator"),
+      appBar: AppBar(
+        title: Text('Calculator'),
+        actions: <Widget>[
+          PopupMenuButton<String>(
+            icon: Icon(Icons.more_horiz),
+            onSelected: handleClick,
+            itemBuilder: (BuildContext context) {
+              return {'Converter', 'History'}.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          ),
+        ],
       ), //AppBar
       backgroundColor: Colors.white38,
       body: Column(
@@ -67,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Container(
-                      padding: EdgeInsets.all(2),
+                      padding: EdgeInsets.all(20),
                       alignment: Alignment.centerRight,
                       child: Text(
                         userInput,
@@ -111,31 +144,21 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
 
-                    // Converter page button
+                    // +/- button
                     else if (index == 1) {
                       return MyButton(
-                        buttonText: buttons[index],
-                        color: Colors.blue[50],
-                        textColor: Colors.black,
-                          buttontapped: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => ConverterPage()),
-                            );
-                          }
-                      );
-                    }
-
-                    // +/- button
-                    else if (index == 2) {
-                      return MyButton(
+                        buttontapped: () {
+                          setState(() {
+                            userInput += buttons[index];
+                          });
+                        },
                         buttonText: buttons[index],
                         color: Colors.blue[50],
                         textColor: Colors.black,
                       );
                     }
                     // % Button
-                    else if (index == 3) {
+                    else if (index == 2) {
                       return MyButton(
                         buttontapped: () {
                           setState(() {
@@ -148,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
                     // Delete Button
-                    else if (index == 4) {
+                    else if (index == 3) {
                       return MyButton(
                         buttontapped: () {
                           setState(() {
@@ -162,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
                     // Equal_to Button
-                    else if (index == 19) {
+                    else if (index == 18) {
                       return MyButton(
                         buttontapped: () {
                           setState(() {
@@ -207,9 +230,16 @@ class _HomePageState extends State<HomePage> {
     return false;
   }
 
+  void _saveToDB(String equation) async {
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnEquation : equation
+    };
+    await DatabaseHelper.instance.insert(row);
+  }
 // function to calculate the input operation
   void equalPressed() {
     String finaluserinput = userInput;
+    String  finalExpression = userInput;
     finaluserinput = userInput.replaceAll('x', '*');
 
     Parser p = Parser();
@@ -217,5 +247,7 @@ class _HomePageState extends State<HomePage> {
     ContextModel cm = ContextModel();
     double eval = exp.evaluate(EvaluationType.REAL, cm);
     answer = eval.toString();
+    finalExpression += " = " + answer;
+    _saveToDB(finalExpression);
   }
 }
