@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:nagy_calc/history.dart';
+import 'package:nagy_calc/history_from_firebase.dart';
 import 'package:nagy_calc/model/model.dart';
 import 'package:nagy_calc/services/api/CRUDModel.dart';
 import 'buttons.dart';
@@ -74,6 +75,12 @@ class _HomePageState extends State<HomePage> {
           MaterialPageRoute(builder: (context) => HistoryPage()),
         );
         break;
+      case 'History (Firebase)':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HistoryFromFirebasePage()),
+        );
+        break;
     }
   }
 
@@ -87,7 +94,7 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.more_horiz),
             onSelected: handleClick,
             itemBuilder: (BuildContext context) {
-              return {'Converter', 'History'}.map((String choice) {
+              return {'Converter', 'History', 'History (Firebase)'}.map((String choice) {
                 return PopupMenuItem<String>(
                   value: choice,
                   child: Text(choice),
