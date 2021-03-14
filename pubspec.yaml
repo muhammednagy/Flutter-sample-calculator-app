@@ -31,6 +31,12 @@ dependencies:
   sqflite:
   path_provider:
   math_expressions: ^2.0.0
+  firebase_core: ^0.7.0
+  firebase_auth: ^0.20.0+1
+  cloud_firestore:
+  provider:
+  get_it: 1.0.3+2
+
 
 dev_dependencies:
   flutter_test:

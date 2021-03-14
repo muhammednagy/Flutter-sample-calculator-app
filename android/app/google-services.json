@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "985929337962",
+    "project_id": "beaming-grid-262613",
+    "storage_bucket": "beaming-grid-262613.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985929337962:android:4bbc23a6310b6cdcb70e13",
+        "android_client_info": {
+          "package_name": "com.example.nagy_calc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985929337962-od9lple4c6qs25mcqg34r59or71smjj6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJqGgQrG9RGjUxGb1_orgg00H-TDyeL5g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985929337962-od9lple4c6qs25mcqg34r59or71smjj6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

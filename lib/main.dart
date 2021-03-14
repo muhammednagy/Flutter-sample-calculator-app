@@ -1,13 +1,19 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:nagy_calc/history.dart';
+import 'package:nagy_calc/model/model.dart';
+import 'package:nagy_calc/services/api/CRUDModel.dart';
 import 'buttons.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 import 'converter.dart';
 import 'helpers/database_helper.dart';
+import 'locator.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  setupLocator();
   runApp(MyApp());
 }
 
@@ -238,6 +244,7 @@ class _HomePageState extends State<HomePage> {
   }
 // function to calculate the input operation
   void equalPressed() {
+    final calculationProvider = CRUDModel();
     String finaluserinput = userInput;
     String  finalExpression = userInput;
     finaluserinput = userInput.replaceAll('x', '*');
@@ -249,5 +256,6 @@ class _HomePageState extends State<HomePage> {
     answer = eval.toString();
     finalExpression += " = " + answer;
     _saveToDB(finalExpression);
+    calculationProvider.addCalculation(Calculation(equation: finalExpression, timestamp: DateTime.now().millisecondsSinceEpoch.toString()));
   }
 }

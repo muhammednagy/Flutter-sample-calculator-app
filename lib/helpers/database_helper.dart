@@ -67,7 +67,7 @@ class DatabaseHelper {
     final List<Map<String, dynamic>> maps = await db.query(table);
     return List.generate(maps.length, (i) {
       return Calculation(
-        id: maps[i]['id'],
+        id: maps[i]['id'].toString(),
         equation: maps[i]['equation'],
         timestamp: maps[i]['timestamp'],
       );
